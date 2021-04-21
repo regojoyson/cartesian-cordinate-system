@@ -6,7 +6,7 @@
 
 # Introduction
 
-This Application related Cartesian Coordinate System, which has some utilities related to it.
+This Application related to Cartesian Coordinate System, which has some utilities related to it.
 	
 
 # Dependencies
