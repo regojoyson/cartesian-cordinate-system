@@ -1,23 +1,23 @@
 package com.cartesian.coordinateSystem.controller;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * test cases for the Cartesian Controller
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class CartesianControllerTest {
@@ -25,41 +25,46 @@ public class CartesianControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    private Logger logger = LoggerFactory.getLogger(CartesianControllerTest.class);
 
     @Test
     public void testIsLineUsingTwoPointsTrue() throws Exception {
+        logger.error("test IsLineUsingTwoPoints() method");
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders
                 .post("/api/v1/line-by-two-points/3/2/2/6"))
                 .andExpect(status().isOk());
-        Assert.assertTrue(Boolean.valueOf(result.andReturn().getResponse().getContentAsString()));
+        assertTrue(Boolean.valueOf(result.andReturn().getResponse().getContentAsString()));
     }
 
 
     @Test
     public void testIsLineUsingTwoPointsFalse() throws Exception {
+        logger.error("test IsLineUsingTwoPoints() method");
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders
                 .post("/api/v1/line-by-two-points/3/3/3/3"))
                 .andExpect(status().isOk());
-        Assert.assertFalse(Boolean.valueOf(result.andReturn().getResponse().getContentAsString()));
+        assertFalse(Boolean.valueOf(result.andReturn().getResponse().getContentAsString()));
     }
 
 
     @Test
     public void testFindGradientAndYIntercept() throws Exception {
+        logger.debug("test testFindGradientAndYIntercept() method");
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders
                 .post("/api/v1/y-intercept/5/2/2/7"))
                 .andExpect(status().isOk());
-        Assert.assertEquals(result.andReturn().getResponse().getContentAsString(), "10");
+        assertEquals(result.andReturn().getResponse().getContentAsString(), "10");
     }
 
 
     @Test
     public void testIsParallelTrue() throws Exception {
+        logger.debug("test IsParallel() method");
         String input = "{ \"line1\": { \"start\": { \"x\": \"2\", \"y\": \"2\" }, \"end\": { \"x\": \"2\", \"y\": \"8\" } }, \"line2\": { \"start\": { \"x\": \"3\", \"y\": \"3\" }, \"end\": { \"x\": \"3\", \"y\": \"3\" } } }";
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders
                 .post("/api/v1/parallel").contentType(MediaType.APPLICATION_JSON).content(input))
                 .andExpect(status().isOk());
-        Assert.assertTrue(Boolean.valueOf(result.andReturn().getResponse().getContentAsString()));
+        assertTrue(Boolean.valueOf(result.andReturn().getResponse().getContentAsString()));
     }
 
 
@@ -69,7 +74,7 @@ public class CartesianControllerTest {
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders
                 .post("/api/v1/parallel").contentType(MediaType.APPLICATION_JSON).content(input))
                 .andExpect(status().isOk());
-        Assert.assertFalse(Boolean.valueOf(result.andReturn().getResponse().getContentAsString()));
+        assertFalse(Boolean.valueOf(result.andReturn().getResponse().getContentAsString()));
     }
 
     @Test
@@ -78,7 +83,7 @@ public class CartesianControllerTest {
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders
                 .post("/api/v1/perpendicular").contentType(MediaType.APPLICATION_JSON).content(input))
                 .andExpect(status().isOk());
-        Assert.assertTrue(Boolean.valueOf(result.andReturn().getResponse().getContentAsString()));
+        assertTrue(Boolean.valueOf(result.andReturn().getResponse().getContentAsString()));
     }
 
     @Test
@@ -87,7 +92,7 @@ public class CartesianControllerTest {
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders
                 .post("/api/v1/perpendicular").contentType(MediaType.APPLICATION_JSON).content(input))
                 .andExpect(status().isOk());
-        Assert.assertFalse(Boolean.valueOf(result.andReturn().getResponse().getContentAsString()));
+        assertFalse(Boolean.valueOf(result.andReturn().getResponse().getContentAsString()));
     }
 
     @Test
@@ -96,7 +101,7 @@ public class CartesianControllerTest {
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders
                 .post("/api/v1/line-incident-point").contentType(MediaType.APPLICATION_JSON).content(input))
                 .andExpect(status().isOk());
-        Assert.assertEquals(result.andReturn().getResponse().getStatus(), 200);
+        assertEquals(result.andReturn().getResponse().getStatus(), 200);
     }
 }
 
