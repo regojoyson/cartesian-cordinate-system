@@ -31,11 +31,13 @@ This Application related to Cartesian Coordinate System, which has some utilitie
 # Dev Build
 
 	How to run the application in Dev
-		1. Package - gradle build
-		2. Run the System - gradle bootrun
+		1. Package - gradle clean build
+		2. Test - gradle test
+		3. Run the System - gradle bootrun
 
 
 				
 # Test/Sample URL (For Dev)
 
-	 find the postman collection in the root folder.
+          1.Test cases result are found inside the \build\reports\tests\test\index.html  post build/test.
+	  2. For the API Testing find the postman collection in the root folder.
