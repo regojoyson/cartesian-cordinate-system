@@ -6,13 +6,7 @@ plugins {
 
 group = 'com.cartesian'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
-
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-}
+sourceCompatibility = '16'
 
 repositories {
 	mavenCentral()
@@ -20,10 +14,8 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation('org.springframework.boot:spring-boot-starter-test')
-	testImplementation group: 'junit', name: 'junit', version: '4.13.2'
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.12.3'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 test {

@@ -1,6 +1,11 @@
 package com.cartesian.coordinateSystem.controller;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +17,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.junit.Assert.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 /**
- * test cases for the Cartesian Controller
+ * Test cases for the Cartesian Controller
  */
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -29,7 +31,7 @@ public class CartesianControllerTest {
 
     @Test
     public void testIsLineUsingTwoPointsTrue() throws Exception {
-        logger.error("test IsLineUsingTwoPoints() method");
+        logger.debug("test IsLineUsingTwoPoints() method");
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders
                 .post("/api/v1/line-by-two-points/3/2/2/6"))
                 .andExpect(status().isOk());

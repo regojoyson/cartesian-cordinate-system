@@ -1,29 +1,32 @@
 package com.cartesian.coordinateSystem.controller;
 
-
-import com.cartesian.coordinateSystem.model.Point;
-import com.cartesian.coordinateSystem.model.TwoLineModel;
-import com.cartesian.coordinateSystem.service.CartesianService;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cartesian.coordinateSystem.model.Point;
+import com.cartesian.coordinateSystem.model.TwoLine;
+import com.cartesian.coordinateSystem.service.CartesianService;
 
 /**
  * This Controller defines the route for the Cartesian coordinates related API's
  *
- * @author RegoJoyson
- * @since 21-apr-2021
  */
 @RestController
 @RequestMapping("/api/v1")
-@RequiredArgsConstructor
 public class CartesianController {
 
     private Logger logger = LoggerFactory.getLogger(CartesianController.class);
 
-    private final CartesianService cartesianService;
+    // Autowire the Service
+    @Autowired
+    private CartesianService cartesianService;
 
     /**
      * Definition of a line by means of two points
@@ -53,7 +56,7 @@ public class CartesianController {
     @PostMapping("/y-intercept/{x1}/{y1}/{x2}/{y2}")
     public ResponseEntity<String> findGradientAndYIntercept(@PathVariable double x1, @PathVariable double y1,
                                                             @PathVariable double x2, @PathVariable double y2) {
-        logger.debug("find Y intercept by two points x1: {}, y1={}, x2={}, y2={}", x1, y1, x2, y2);
+        logger.debug("Find Y intercept by two points x1: {}, y1={}, x2={}, y2={}", x1, y1, x2, y2);
         return ResponseEntity.ok(cartesianService.findGradientAndYIntercept(new Point(x1, y1), new Point(x2, y2)));
     }
 
@@ -64,9 +67,9 @@ public class CartesianController {
      * @return returns true if parallel
      */
     @PostMapping("/parallel")
-    public ResponseEntity<Boolean> isParallel(@RequestBody TwoLineModel twoLineModel) {
-        logger.debug("check the two lines are parallel or not");
-        return ResponseEntity.ok(cartesianService.isParallel(twoLineModel.getLine1(), twoLineModel.getLine2()));
+    public ResponseEntity<Boolean> isParallel(@RequestBody TwoLine twoLineModel) {
+        logger.debug("Check the two lines are parallel or not");
+        return ResponseEntity.ok(cartesianService.isParallel(twoLineModel.line1(), twoLineModel.line2()));
     }
 
     /**
@@ -76,9 +79,9 @@ public class CartesianController {
      * @return returns true if perpendicular
      */
     @PostMapping("/perpendicular")
-    public ResponseEntity<Boolean> isPerpendicular(@RequestBody TwoLineModel twoLineModel) {
-        logger.debug("check the two lines are perpendicular or not");
-        return ResponseEntity.ok(cartesianService.isPerpendicular(twoLineModel.getLine1(), twoLineModel.getLine2()));
+    public ResponseEntity<Boolean> isPerpendicular(@RequestBody TwoLine twoLineModel) {
+        logger.debug("Check the two lines are perpendicular or not");
+        return ResponseEntity.ok(cartesianService.isPerpendicular(twoLineModel.line1(), twoLineModel.line2()));
     }
 
     /**
@@ -88,9 +91,9 @@ public class CartesianController {
      * @return return the incident point
      */
     @PostMapping("/line-incident-point")
-    public ResponseEntity<Point> lineIncidencePoint(@RequestBody TwoLineModel twoLineModel) {
-        logger.debug("get the line incident point");
-        return ResponseEntity.ok(cartesianService.lineIncidencePoint(twoLineModel.getLine1(), twoLineModel.getLine2()));
+    public ResponseEntity<Point> lineIncidencePoint(@RequestBody TwoLine twoLineModel) {
+        logger.debug("Get the line incident point");
+        return ResponseEntity.ok(cartesianService.lineIncidencePoint(twoLineModel.line1(), twoLineModel.line2()));
     }
 
 

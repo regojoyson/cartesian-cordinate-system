@@ -39,7 +39,7 @@ public interface CartesianService {
     boolean isParallel(Line l1, Line l2);
 
     /**
-     * Condition of perpendicularity of two lines
+     * Condition to check if two lines are perpendicular
      *
      * @param l1
      * @param l2

@@ -1,9 +1,0 @@
-application:
-  name: Cartesian Coordinate System
-server:
-  port: 8081
-
-logging:
-  level:
-    root: INFO
-    com.cartesian.coordinateSystem: DEBUG

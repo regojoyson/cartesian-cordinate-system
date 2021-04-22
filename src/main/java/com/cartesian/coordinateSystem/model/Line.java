@@ -1,21 +1,7 @@
 package com.cartesian.coordinateSystem.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
- * This represent the Line using 2 Points
- *
- * @author RegoJoyson
- * @since 21-apr-2021
+ * This class represent the Line using 2 Points
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class Line {
-
-    private Point start;
-    private Point end;
-
+public record Line(Point start, Point end) {
 }
